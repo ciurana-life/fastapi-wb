@@ -1,5 +1,4 @@
 import phonenumbers
-
 from pydantic import BaseModel, validator
 
 
@@ -10,14 +9,14 @@ class UserBase(BaseModel):
     phone_number: str
     address: str
 
-    @validator('phone_number')
+    @validator("phone_number")
     def validate_phone_number(cls, phone_number):
         try:
             parsed_number = phonenumbers.parse(phone_number, None)
             if not phonenumbers.is_valid_number(parsed_number):
-                raise ValueError('Invalid phone number')
+                raise ValueError("Invalid phone number")
         except phonenumbers.phonenumberutil.NumberParseException:
-            raise ValueError('Invalid phone number')
+            raise ValueError("Invalid phone number")
         return phone_number
 
 
